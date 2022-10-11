@@ -1,0 +1,92 @@
+<meta charset="UTF-8">
+<input/>
+<button>Compare com o meu segredo</button>
+
+<script>
+	//funcao sorteia: sorteia um numero aleatorio.
+    function sorteia() {
+
+       return Math.round(Math.random() * 10);
+
+    }
+
+    //funcao sorteiaNumeros: gera a quantidade necessaria para o Array de numeros aleatorios sem repitir e sem o 0.
+    function sorteiaNumeros(quantidade) {
+
+		//variavel array.
+        var segredos = [];
+		
+		//parametro de contagem para while.
+        var numero = 1;
+
+        //condicao do while.
+        while(numero <= quantidade) {
+
+        	  //variavel numeroAleatorio: vai receber numero sorteado;
+              var numeroAleatorio = sorteia();
+              //declaração da variavel achou: onde dará a condição de coninuar a execução do loop if.
+              var achou = false;
+
+              //if: condição onde numero aleatorio não pode ser igual a 0.
+              if (numeroAleatorio !== 0) {
+              		 //for: verifica posicoes do array segredos e lenght faz o trabalho de não precisar mudar o tamanho do numeros de segredos, onde poderia ocorrer um erro no programa.	
+                     for(var posicao = 0; posicao < segredos.length; posicao++) {
+
+                     	   //if verifica se a posicao do segredo e igual ao numero aleatorio.	
+                           if(segredos[posicao] == numeroAleatorio){
+                           		//caso seja a variavel achou recebe true, e da um break, parando o programa e passando para proxima condição do if? e essa parte que estou com duvida.
+                                achou = true;
+                                break;
+                           }
+
+                     }
+                     // if verifica se achou for false onde caso o numero gerado não for igual ao os que estão no array ele acrecenta a lista e adicona mais um pos-incremento para contagem do while.
+                     if (achou == false) {
+
+                           segredos.push(numeroAleatorio);
+                           numero++;
+                     }
+              }
+
+        }
+        //returna a lista do segredos gerados pela function sorteiaNumeros.
+        return segredos;
+
+    }
+    // variavel que determina o numeros de array na lista.
+    var segredos = sorteiaNumeros(3);
+
+    console.log(segredos);
+
+    var input = document.querySelector("input");
+    input.focus();
+
+    function verifica() {
+
+       var achou = false;
+
+       for(var posicao = 0; posicao < segredos.length; posicao++) {
+
+              if(input.value == segredos[posicao]) {
+
+                     alert("Você ACERTOU!");
+                     achou = true;
+                     break;
+              } 
+       }
+
+       if(achou == false) {
+
+              alert("Você ERROU!");
+       }
+
+       input.value = "";
+       input.focus();
+
+    }
+
+    var button = document.querySelector("button");
+
+    button.onclick = verifica;
+
+</script>
